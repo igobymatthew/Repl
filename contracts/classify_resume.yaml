@@ -1,0 +1,27 @@
+task: classify_resume
+version: 1.0.0
+input_schema: ResumeInput
+output_schema: ResumeClassification
+capability_class: fast_classifier
+allowed_models:
+  - reasoning_fast
+  - local_private_fallback
+allowed_tools:
+  - ats.lookup_role_taxonomy
+side_effects: read_only
+evidence_required: false
+max_cost_usd: 0.02
+max_latency_ms: 2500
+eval_suite:
+  - resume_classification_regression_v1
+  - bias_check_v1
+fallback_policy:
+  on_schema_fail: retry_same_model_once
+  on_quality_fail: route_to_stronger_model
+  on_tool_error: return_recoverable_error
+trace_policy:
+  log_inputs: redacted
+  log_tool_outputs: hashed_with_excerpt
+  retain_days: 14
+rollback_behavior:
+  mode: pin_patch
