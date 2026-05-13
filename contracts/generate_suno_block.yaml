@@ -1,0 +1,27 @@
+task: generate_suno_block
+version: 0.3.0-shadow
+input_schema: SongPromptInput
+output_schema: SunoBlockOutput
+capability_class: strict_json_extractor
+allowed_models:
+  - reasoning_medium
+  - local_private_fallback
+allowed_tools:
+  - policy.check_music_compliance
+side_effects: read_only
+evidence_required: true
+max_cost_usd: 0.04
+max_latency_ms: 4000
+eval_suite:
+  - suno_block_regression_v1
+  - policy_violation_check_v1
+fallback_policy:
+  on_schema_fail: retry_same_model_once
+  on_quality_fail: route_to_stronger_model
+  on_tool_error: return_recoverable_error
+trace_policy:
+  log_inputs: redacted
+  log_tool_outputs: hashed_with_excerpt
+  retain_days: 7
+rollback_behavior:
+  mode: shadow_only

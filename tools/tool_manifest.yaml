@@ -1,0 +1,24 @@
+tools:
+  - name: crm.read_ticket
+    description: Read customer ticket metadata and conversation.
+    read_write_scope: read
+    idempotency: idempotent
+    side_effects: none
+    required_approval_level: none
+    auth_scope: crm:ticket:read
+    rate_limit: 300/min
+    rollback_function: not_required
+    secret_exposure_risk: low
+    untrusted_instruction_risk: medium
+
+  - name: policy.search_refunds
+    description: Retrieve refund policy snippets.
+    read_write_scope: read
+    idempotency: idempotent
+    side_effects: none
+    required_approval_level: none
+    auth_scope: policy:refunds:read
+    rate_limit: 120/min
+    rollback_function: not_required
+    secret_exposure_risk: low
+    untrusted_instruction_risk: medium

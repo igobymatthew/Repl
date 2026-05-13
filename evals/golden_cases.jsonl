@@ -1,0 +1,2 @@
+{"task":"summarize_customer_complaint","input":{"ticket_id":"T-1001"},"expected":{"summary_contains":["refund request","shipping delay"]}}
+{"task":"classify_resume","input":{"candidate_id":"C-321"},"expected":{"label":"backend_engineer"}}
